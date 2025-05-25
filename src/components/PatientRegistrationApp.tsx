@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { PatientRegistrationForm } from "./FormComponents/PatientRegistrationForm";
 import { PatientList } from "./FormComponents/PatientList";
+import { SqlQueryInterface } from "./FormComponents/SqlQueryInterface";
 
 import {
   Box,
@@ -29,6 +30,7 @@ const TabNavigation: React.FC<{
   >
     <Tab label="👤 Register Patient" />
     <Tab label="📋 Patient Records" />
+    <Tab label="🗄️ SQL Query" />
   </Tabs>
 );
 
@@ -80,6 +82,7 @@ const PatientRegistrationApp: React.FC = () => {
           <PatientRegistrationForm  />
         )}
         {activeTab === 1 && <PatientList  />}
+        {activeTab === 2 && <SqlQueryInterface />}
       </Container>
     </Box>
   );
