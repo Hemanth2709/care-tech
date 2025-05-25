@@ -1,17 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { PatientRegistrationForm } from "./FormComponents/PatientRegistrationForm";
-
+import { PatientList } from "./FormComponents/PatientList";
 
 import {
   Box,
   Typography,
+  Tabs,
+  Tab,
   useTheme,
   useMediaQuery,
   Container,
 } from "@mui/material";
 
+
+// Tabs
+const TabNavigation: React.FC<{
+  activeTab: number;
+  onTabChange: (tab: number) => void;
+}> = ({ activeTab, onTabChange }) => (
+  <Tabs
+    value={activeTab}
+    onChange={(_e, newVal) => onTabChange(newVal)}
+    aria-label="Patient Registration Tabs"
+    sx={{ mb: 4 }}
+    variant="fullWidth"
+    textColor="primary"
+    indicatorColor="primary"
+  >
+    <Tab label="👤 Register Patient" />
+    <Tab label="📋 Patient Records" />
+  </Tabs>
+);
+
 // App Component
 const PatientRegistrationApp: React.FC = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -50,7 +74,12 @@ const PatientRegistrationApp: React.FC = () => {
           </Typography>
         </Box>
 
-        <PatientRegistrationForm />
+        <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+
+        {activeTab === 0 && (
+          <PatientRegistrationForm  />
+        )}
+        {activeTab === 1 && <PatientList  />}
       </Container>
     </Box>
   );
